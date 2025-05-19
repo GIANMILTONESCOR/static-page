@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Mi Amor</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        :root {
+            --primary: #ff3a8c;
+            --secondary: #5d26c1;
+            --accent: #00f2fe;
+            --text: #2b2b2b;
+            --light: #ffffff;
+            --dark: #121212;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+            color: var(--text);
+            perspective: 1000px;
+        }
+        
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            min-height: 80vh;
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 24px;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            overflow: hidden;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s ease-in-out;
+        }
+        
+        .container:hover {
+            transform: translateY(-10px) rotateX(5deg);
+        }
+        
+        .content {
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 30px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            font-weight: 800;
+        }
+        
+        .message {
+            font-size: 1.3rem;
+            line-height: 1.7;
+            margin-bottom: 30px;
+            color: var(--light);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .highlight {
+            background: linear-gradient(120deg, var(--accent), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: bold;
+            font-size: 1.4rem;
+        }
+        
+        .photo-gallery {
+            display: flex;
+            margin: 40px 0;
+            gap: 20px;
+            position: relative;
+            overflow: hidden;
+            height: 300px;
+            border-radius: 16px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+        
+        .photo-container {
+            flex: 1;
+            overflow: hidden;
+            border-radius: 16px;
+            transform: skewX(-5deg);
+            transition: all 0.5s;
+            position: relative;
+        }
+        
+        .photo-container:hover {
+            flex: 3;
+            transform: skewX(0);
+        }
+        
+        .photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: skewX(5deg) scale(1.2);
+            transition: transform 0.5s;
+        }
+        
+        .photo-container:hover .photo {
+            transform: skewX(0) scale(1);
+        }
+        
+        button {
+            padding: 15px 40px;
+            margin: 20px 10px;
+            border: none;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--secondary), var(--primary));
+            z-index: -1;
+            transition: transform 0.5s;
+            transform-origin: 0 0;
+            transition-timing-function: cubic-bezier(0.5, 1.6, 0.4, 0.7);
+            transform: scaleX(0);
+        }
+        
+        button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        button:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .special-message {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: all 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(15px);
+            border-radius: 16px;
+            color: var(--light);
+            line-height: 1.8;
+            font-size: 1.25rem;
+            margin: 30px auto;
+            max-width: 800px;
+            transform: translateY(50px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+        
+        .special-message.visible {
+            max-height: 1000px;
+            opacity: 1;
+            padding: 30px;
+            transform: translateY(0);
+        }
+        
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.6;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .hearts-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .heart {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            opacity: 0;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff3a8c'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E");
+            background-size: contain;
+            background-repeat: no-repeat;
+            animation: floatHeart 6s linear infinite;
+        }
+        
+        @keyframes floatHeart {
+            0% {
+                transform: translateY(100vh) scale(0.5) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) scale(1.5) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .music-controls {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            z-index: 10;
+        }
+        
+        .music-btn {
+            background-color: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
+        }
+        
+        .music-btn:hover {
+            transform: scale(1.1);
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        .music-icon {
+            width: 24px;
+            height: 24px;
+            fill: white;
+        }
+
+        .footer {
+            margin-top: 40px;
+            color: var(--light);
+            font-style: italic;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        /* Efectos 3D y decoración */
+        .decoration {
+            position: absolute;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .circle {
+            border-radius: 50%;
+            background: radial-gradient(circle at center, rgba(255,255,255,0.8), rgba(255,255,255,0));
+            position: absolute;
+        }
+        
+        .circle-1 {
+            width: 400px;
+            height: 400px;
+            top: -200px;
+            left: -200px;
+            opacity: 0.15;
+        }
+        
+        .circle-2 {
+            width: 300px;
+            height: 300px;
+            bottom: -150px;
+            right: -150px;
+            opacity: 0.1;
+        }
+        
+        /* Efectos de cursor */
+        .cursor-follower {
+            position: fixed;
+            width: 30px;
+            height: 30px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            opacity: 0.5;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s, width 0.3s, height 0.3s, background-color 0.3s;
+            transform: translate(-50%, -50%);
+            display: none;
+        }
+        
+        /* Animaciones de entrada */
+        .slide-up {
+            animation: slideUp 1s forwards;
+            opacity: 0;
+        }
+        
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        /* Estilos responsivos */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .content {
+                padding: 30px 20px;
+            }
+            
+            .photo-gallery {
+                height: 200px;
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .photo-container {
+                transform: skewX(0);
+            }
+            
+            .photo {
+                transform: skewX(0) scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cursor-follower" id="cursorFollower"></div>
+    
+    <div class="container animate__animated animate__fadeIn">
+        <div class="decoration circle circle-1"></div>
+        <div class="decoration circle circle-2"></div>
+        
+        <div class="hearts-container" id="heartsContainer"></div>
+        
+        <div class="content">
+            <h1 class="animate__animated animate__fadeInDown">Para El Amor De Mi Vida</h1>
+            
+            <p class="message slide-up" style="animation-delay: 0.3s;">
+                Cada día descubro nuevas razones para enamorarme de ti.<br>
+                Tu <span class="highlight">amabilidad</span> ilumina mi mundo y tu 
+                <span class="highlight">cariño</span> transforma mi vida en algo extraordinario.
+            </p>
+
+            <div class="photo-gallery slide-up" style="animation-delay: 0.6s;">
+                <div class="photo-container">
+                    <!-- Aquí puedes colocar una imagen de Google -->
+                    <img src="https://s1.1zoom.me/b5050/317/353407-admin_3840x2160.jpg" alt="Google Logo" class="photo">
+                </div>
+            </div>
+            
+            <p class="message slide-up" style="animation-delay: 0.9s;">
+                Contigo los momentos ordinarios se vuelven mágicos.<br>
+                Eres mi inspiración, mi refugio y mi más grande aventura.
+            </p>
+            
+            <div class="slide-up" style="animation-delay: 1.2s;">
+                <button id="showMessage" class="animate__animated animate__pulse animate__infinite">
+                    Descubre Mi Mensaje Para Ti ❤️
+                </button>
+            </div>
+            
+            <div class="special-message" id="specialMessage">
+                <p>Mi amor:</p>
+                <p>Hay algo en la manera en que sonríes que hace que mi corazón se acelere, como la primera vez que te vi. Tu alma cariñosa y amable ha transformado mi mundo por completo.</p>
+                <p>Cada día contigo es un regalo que atesoro. Me encanta cómo tus ojos brillan cuando hablas de lo que te apasiona, cómo tu risa llena cualquier habitación de alegría, y cómo tu toque gentil puede calmar cualquier tormenta en mi interior.</p>
+                <p>Eres extraordinaria en cada sentido. Tu forma de preocuparte por los demás, tu generosidad sin límites y tu corazón bondadoso me inspiran a ser mejor persona.</p>
+                <p>Prometo estar siempre a tu lado, en los momentos de felicidad y en los desafíos. Construir una vida juntos es mi mayor sueño, y cada día contigo es un paso más en este hermoso viaje.</p>
+                <p>Te amo infinitamente, hoy y siempre.</p>
+            </div>
+            
+            <p class="footer slide-up" style="animation-delay: 1.5s;">Con todo mi amor, para siempre tuyo ♾️</p>
+        </div>
+        
+        <div class="music-controls">
+            <div class="music-btn" id="musicToggle">
+                <svg class="music-icon" viewBox="0 0 24 24">
+                    <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script>
+        // Efectos de animación y funcionalidad
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animación del cursor personalizado
+            const cursorFollower = document.getElementById('cursorFollower');
+            
+            document.addEventListener('mousemove', function(e) {
+                anime({
+                    targets: cursorFollower,
+                    left: e.clientX,
+                    top: e.clientY,
+                    duration: 200,
+                    easing: 'easeOutExpo'
+                });
+                
+                if (window.innerWidth > 768) {
+                    cursorFollower.style.display = 'block';
+                }
+            });
+            
+            document.addEventListener('mousedown', function() {
+                anime({
+                    targets: cursorFollower,
+                    width: 25,
+                    height: 25,
+                    backgroundColor: '#00f2fe',
+                    duration: 400
+                });
+            });
+            
+            document.addEventListener('mouseup', function() {
+                anime({
+                    targets: cursorFollower,
+                    width: 30,
+                    height: 30,
+                    backgroundColor: '#ff3a8c',
+                    duration: 400
+                });
+            });
+            
+            // Botón para mostrar mensaje especial
+            const messageBtn = document.getElementById('showMessage');
+            const specialMessage = document.getElementById('specialMessage');
+            
+            messageBtn.addEventListener('click', function() {
+                specialMessage.classList.toggle('visible');
+                
+                if (specialMessage.classList.contains('visible')) {
+                    this.textContent = 'Ocultar Mensaje ❤️';
+                    this.classList.remove('animate__infinite');
+                    
+                    // Efecto de partículas al revelar
+                    createParticles();
+                } else {
+                    this.textContent = 'Descubre Mi Mensaje Para Ti ❤️';
+                    this.classList.add('animate__infinite');
+                }
+                
+                // Scroll suave al mensaje
+                if (specialMessage.classList.contains('visible')) {
+                    specialMessage.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'center'
+                    });
+                }
+            });
+            
+            // Botón de música (simulado)
+            const musicBtn = document.getElementById('musicToggle');
+            let musicPlaying = false;
+            
+            musicBtn.addEventListener('click', function() {
+                musicPlaying = !musicPlaying;
+                
+                if (musicPlaying) {
+                    this.innerHTML = `
+                        <svg class="music-icon" viewBox="0 0 24 24">
+                            <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6zm-2 16c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
+                        </svg>
+                    `;
+                    
+                    // Aquí se simularía reproducir música
+                    anime({
+                        targets: this,
+                        rotate: '360deg',
+                        duration: 1000,
+                        easing: 'easeInOutQuad'
+                    });
+                } else {
+                    this.innerHTML = `
+                        <svg class="music-icon" viewBox="0 0 24 24">
+                            <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+                        </svg>
+                    `;
+                    
+                    // Aquí se simularía pausar música
+                    anime({
+                        targets: this,
+                        rotate: '0deg',
+                        duration: 1000,
+                        easing: 'easeInOutQuad'
+                    });
+                }
+            });
+            
+            // Crear partículas
+            function createParticles() {
+                for (let i = 0; i < 30; i++) {
+                    const particle = document.createElement('div');
+                    particle.classList.add('particle');
+                    
+                    // Estilos aleatorios
+                    const size = Math.random() * 15 + 5;
+                    const color = `hsl(${Math.random() * 40 + 320}, 100%, 50%)`;
+                    
+                    particle.style.width = `${size}px`;
+                    particle.style.height = `${size}px`;
+                    particle.style.backgroundColor = color;
+                    
+                    // Posición inicial (desde el botón)
+                    const btnRect = messageBtn.getBoundingClientRect();
+                    const startX = btnRect.left + btnRect.width / 2;
+                    const startY = btnRect.top + btnRect.height / 2;
+                    
+                    particle.style.left = `${startX}px`;
+                    particle.style.top = `${startY}px`;
+                    
+                    document.body.appendChild(particle);
+                    
+                    // Animación de explosión
+                    anime({
+                        targets: particle,
+                        left: startX + (Math.random() - 0.5) * 200,
+                        top: startY + (Math.random() - 0.5) * 200,
+                        opacity: 0,
+                        duration: 1000,
+                        easing: 'easeOutExpo',
+                        complete: function() {
+                            particle.remove();
+                        }
+                    });
+                }
+            }
+            
+            // Crear corazones flotantes
+            function createFloatingHearts() {
+                const heartsContainer = document.getElementById('heartsContainer');
+                
+                function createHeart() {
+                    const heart = document.createElement('div');
+                    heart.classList.add('heart');
+                    
+                    // Posición y tamaño aleatorios
+                    const size = Math.random() * 30 + 15;
+                    const left = Math.random() * 100;
+                    const animDuration = Math.random() * 4 + 4;
+                    const delay = Math.random() * 5;
+                    
+                    heart.style.width = `${size}px`;
+                    heart.style.height = `${size}px`;
+                    heart.style.left = `${left}%`;
+                    heart.style.bottom = `-50px`;
+                    heart.style.animationDuration = `${animDuration}s`;
+                    heart.style.animationDelay = `${delay}s`;
+                    
+                    heartsContainer.appendChild(heart);
+                    
+                    // Eliminar después de completar la animación
+                    setTimeout(() => {
+                        heart.remove();
+                    }, (animDuration + delay) * 1000);
+                }
+                
+                // Crear varios corazones
+                for (let i = 0; i < 15; i++) {
+                    createHeart();
+                }
+                
+                // Continuar creando corazones
+                setInterval(createHeart, 800);
+            }
+            
+            // Iniciar la creación de corazones
+            createFloatingHearts();
+            
+            // Animación de elementos al hacer scroll
+            function animateOnScroll() {
+                const elements = document.querySelectorAll('.slide-up');
+                
+                elements.forEach(element => {
+                    const position = element.getBoundingClientRect();
+                    
+                    // Si el elemento está en el viewport
+                    if (position.top < window.innerHeight - 100) {
+                        element.style.animation = 'slideUp 1s forwards';
+                    }
+                });
+            }
+            
+            // Observar el scroll
+            window.addEventListener('scroll', animateOnScroll);
+            
+            // Ejecutar una vez al cargar para los elementos visibles inicialmente
+            animateOnScroll();
+            
+            // Efecto de parallax
+            document.addEventListener('mousemove', function(e) {
+                const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+                const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+                
+                const container = document.querySelector('.container');
+                container.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+            });
+            
+            // Restablecer el efecto 3D al salir
+            document.addEventListener('mouseleave', function() {
+                const container = document.querySelector('.container');
+                container.style.transform = 'rotateY(0deg) rotateX(0deg)';
+            });
+        });
+    </script>
+</body>
+</html>
